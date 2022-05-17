@@ -1,0 +1,6 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: "node-js-monitoring-app"
+    static_configs:
+      - targets: ["node-js-monitoring-app:8080"]

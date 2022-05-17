@@ -4,12 +4,12 @@
 
 Clone the repository:
 ```bash
-git clone https://github.com/arpendu11/node-prometheus-grafana.git
+git clone https://github.com/VAUED/Node-JS-App-Monitoring-with-Prometheus-and-Grafana
 ```
 
 Navigate into the project directory:
 ```bash
-cd node-prometheus-grafana
+cd Node-JS-App-Monitoring-with-Prometheus-and-Grafana
 ```
 
  Start the Docker containers:

@@ -32,6 +32,7 @@ services:
   node-application-monitoring-app:
     build:
       context: node-js-app
+    container_name: node-js-app
     ports:
       - 8080:8080
     expose:

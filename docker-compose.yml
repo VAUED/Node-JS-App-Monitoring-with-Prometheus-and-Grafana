@@ -1,14 +1,24 @@
 version: '3'
+volumes:
+  promethus:
+    driver: azure_file
+    driver_opts:
+      share_name: promethus
+      storage_account_name: vauedstorage
+  grafana:
+    driver: azure_file
+    driver_opts:
+      share_name: grafana
+      storage_account_name: vauedstorage
 networks:
   monitoring:
     driver: bridge
 services:
   prometheus:
-    image: prom/prometheus:latest
+    build:
+        context: prometheus
+    image: vaued.azurecr.io/prometheus
     container_name: prometheus
-    volumes:
-      - prometheusdata:/prometheus
-      - prometheus:/etc/prometheus
     ports:
       - 9090:9090
     expose:
@@ -16,11 +26,10 @@ services:
     networks:
       - monitoring
   grafana:
-    image: grafana/grafana-oss:latest
+    build:
+        context: grafana
+    image: vaued.azurecr.io/grafana
     container_name: grafana
-    volumes:
-      - grafanadata:/var/lib/grafana
-      - grafana:/etc/grafana/provisioning
     environment:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -42,24 +51,3 @@ services:
       - 8080
     networks:
       - monitoring
-volumes:
-  prometheusdata:
-    driver: azure_file
-    driver_opts:
-      share_name: prometheusdata
-      storage_account_name: vauedstorage
-  grafanadata:
-    driver: azure_file
-    driver_opts:
-      share_name: grafanadata
-      storage_account_name: vauedstorage
-  promethus:
-    driver: azure_file
-    driver_opts:
-      share_name: promethus
-      storage_account_name: vauedstorage
-  grafana:
-    driver: azure_file
-    driver_opts:
-      share_name: grafana
-      storage_account_name: vauedstorage

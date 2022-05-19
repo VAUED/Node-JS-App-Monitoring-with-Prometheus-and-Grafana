@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 9,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -90,7 +89,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  " - GET /metrics"
+                  " - GET /slow"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -359,7 +358,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "rotrpm"
         },
         "overrides": []
       },
@@ -780,18 +780,41 @@
       "type": "piechart"
     },
     {
-      "cards": {},
-      "color": {
-        "cardColor": "#FADE2A",
-        "colorScale": "sqrt",
-        "colorScheme": "interpolateOranges",
-        "exponent": 0.3,
-        "mode": "opacity"
-      },
-      "dataFormat": "tsbuckets",
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 9,
@@ -799,15 +822,16 @@
         "x": 18,
         "y": 9
       },
-      "heatmap": {},
-      "hideZeroBuckets": true,
-      "highlightCards": true,
       "id": 23,
-      "legend": {
-        "show": true
+      "options": {
+        "bucketOffset": 0,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        }
       },
       "pluginVersion": "7.3.5",
-      "reverseYBuckets": false,
       "targets": [
         {
           "expr": "label_replace(sum by (le) (increase(http_request_duration_seconds_bucket[1d])), \"le\", \"Inf\", \"le\", \"\\\\+Inf\")",
@@ -819,23 +843,9 @@
           "refId": "A"
         }
       ],
-      "title": "Node Reqeust Duration Heatmap",
-      "tooltip": {
-        "show": true,
-        "showHistogram": false
-      },
+      "title": "Node Reqeust Duration Histogram",
       "transformations": [],
-      "type": "heatmap",
-      "xAxis": {
-        "show": true
-      },
-      "yAxis": {
-        "decimals": 2,
-        "format": "s",
-        "logBase": 1,
-        "show": true
-      },
-      "yBucketBound": "middle"
+      "type": "histogram"
     },
     {
       "datasource": {
@@ -1053,6 +1063,6 @@
   "timezone": "",
   "title": "Request Flow Dashboard",
   "uid": "8vAjuoXnk",
-  "version": 41,
+  "version": 1,
   "weekStart": ""
 }

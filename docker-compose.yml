@@ -1,15 +1,4 @@
 version: '3'
-volumes:
-  promethus:
-    driver: azure_file
-    driver_opts:
-      share_name: promethus
-      storage_account_name: vauedstorage
-  grafana:
-    driver: azure_file
-    driver_opts:
-      share_name: grafana
-      storage_account_name: vauedstorage
 networks:
   monitoring:
     driver: bridge
